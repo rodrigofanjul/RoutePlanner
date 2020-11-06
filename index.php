@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="css/print.css"  type="text/css" media="print">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/BpTspSolver.js"></script>
 <script type="text/javascript" src="js/directions-export.js"></script>
 <script type="text/javascript" src="js/tspaecb.js"></script>
@@ -218,8 +218,9 @@ jQuery(function() {
 <nav class="navbar navbar-light bg-light justify-content-between">
   <a class="navbar-brand"> Investigación operativa 2020 </a>
   <form class="form-inline">
-  <td><div id="facebookShare"><div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div></div></td>
-        <td><div id="twitterShare"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div></td>
+  <!-- <td><div id="facebookShare"><div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div></div></td> -->
+        <!-- <td><div id="twitterShare"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div></td> -->
+        <img src="icons\simbolo0.png" width="50" height="50">
   </form>
 </nav>
 
@@ -236,9 +237,9 @@ jQuery(function() {
         <tr>
         
       <div class="input-group mb-3">
-      <input id='addressStr' name="addressStr" type="text" class="form-control" placeholder="Type address here"/>
+      <input id='addressStr' name="addressStr" type="text" class="form-control" placeholder="Inserte una dirección"/>
       <div class="input-group-append">
-      <button type="button" value="Find!" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Find!</button>
+      <button type="button" value="Find!" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Buscar</button>
       </div>
   </div>
          
@@ -249,9 +250,9 @@ jQuery(function() {
   <div class='col-md-3'>
     <table style="float: right;">
       <tr>
-        <td><button type='button' value='Bulk add addresses' id='bulkButton' class="btn btn-info"> Bulk add addresses </button> </td>
-        <td><button type='button' value='Help' id='helpButton' class="btn btn-info"> Help </button></td>
-        <td><button type='button' value='About' id='aboutButton' class="btn btn-info"> About </button></td>
+        <td><button type='button' value='Bulk add addresses' id='bulkButton' class="btn btn-info"> Volcar direcciones </button> </td>
+        <!-- <td><button type='button' value='Help' id='helpButton' class="btn btn-info"> Ayuda </button></td> -->
+        <!-- <td><button type='button' value='About' id='aboutButton' class="btn btn-info"> About </button></td> -->
       </tr>
     </table>
   </div>
@@ -267,12 +268,12 @@ jQuery(function() {
   <div class='col-md-12 col-print-12'>
     <table>
       <tr>
-        <td><button id='calculateButton' type='button' value='Calculate!' class="btn btn-primary"> Calculate! </button></td>
-        <td><button type='button' value='Edit' id='editButton' class="btn btn-primary"> Edit </button></td>
-        <td><button type='button' value='Export' id='exportButton' class="btn btn-primary"> Export </button></td>
-        <td><button type='button' value='Clear' onClick='startOver()' class="btn btn-primary"> Clear </button></td>
-        <td><button type='button' value='Save' onClick='save()' class="btn btn-primary"> Save </button></td>
-        <td><button type='button' value='Print' onClick='window.print()' class="btn btn-primary"> Print </button></td>
+        <td><button id='calculateButton' type='button' value='Calculate!' class="btn btn-primary"> Calcular </button></td>
+        <!-- <td><button type='button' value='Edit' id='editButton' class="btn btn-primary"> Editar </button></td> -->
+        <!-- <td><button type='button' value='Export' id='exportButton' class="btn btn-primary"> Exportar </button></td> -->
+        <td><button type='button' value='Clear' onClick='startOver()' class="btn btn-primary"> Borrar Direcciones </button></td>
+        <td><button type='button' value='Save' onClick='save()' class="btn btn-primary"> Guardar </button></td>
+        <td><button type='button' value='Print' onClick='window.print()' class="btn btn-primary"> Imprimir </button></td>
       </tr>
     </table>
   </div>
@@ -297,9 +298,9 @@ jQuery(function() {
 </div>
 
 <!-- Hidden stuff -->
-<div id="dialogBulk" title='Bulk add addresses'>
+<div id="dialogBulk" title='Volcar direcciones'>
   <form name="listOfLocations" onSubmit="clickedAddList(); return false;">
-    <textarea name="inputList" rows="10" cols="70">One destination per line</textarea><br>
+    <textarea name="inputList" rows="10" cols="70">Una dirección por linea</textarea><br>
     <input type="button" value="Add list of locations" onClick="clickedAddList();">
   </form>
 </div>
@@ -310,7 +311,7 @@ jQuery(function() {
 <div id="exportOrderData_hidden" class='hidden'></div>
 <div id="durationsData_hidden" class='hidden'></div>
 
-<div id="dialogProgress" title="Calculating route...">
+<div id="dialogProgress" title="Calculando camino...">
   <div id="progressBar"></div>
 </div>
 
@@ -381,20 +382,20 @@ jQuery(function() {
   <div id="exportOrderData"></div>
 </div>
 
-<div id='dialogOptions' title='Travel Options'>
+<div id='dialogOptions' title='Opciones del camino'>
   <p>
     <form name="travelOpts">
-      <input id='walking' type='checkbox'/> Walking <span class='slowWarn red'></span><br>
-      <input id='bicycling' type='checkbox'/> Bicycling <span class='slowWarn red'></span><br>
-      <input id='avoidHighways' type='checkbox'/> Avoid highways <span class='slowWarn red'></span><br>
-      <input id='avoidTolls' type='checkbox'/> Avoid toll roads <span class='slowWarn red'></span><br>
-      <input id='metricUnits' type='checkbox'/> Metric units (km)
+      <input id='walking' type='checkbox'/> Caminando <span class='slowWarn red'></span><br>
+      <input id='bicycling' type='checkbox'/> En Bicicleta <span class='slowWarn red'></span><br>
+      <input id='avoidHighways' type='checkbox'/> Evitar carreteras <span class='slowWarn red'></span><br>
+      <input id='avoidTolls' type='checkbox'/> Evitar peajes <span class='slowWarn red'></span><br>
+      <input id='metricUnits' type='checkbox'/> Unidad Metrica (km)
     </form>
   </p>
   <p>
-    <input class="calcButton" type="button" value="Calculate Fastest Roundtrip" onClick="directions(0, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
-    <input class="calcButton" type="button" value="Calculate Fastest A-Z Trip" onClick="directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
-    <input class="calcButton" type="button" value="Calculate In Order" onClick="orderedDirections(document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
+    <input class="calcButton" type="button" value="Calcular Agente Viajero" onClick="directions(0, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
+    <input class="calcButton" type="button" value="Calcular Agente Economico" onClick="directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
+    <!-- <input class="calcButton" type="button" value="Calculate In Order" onClick="orderedDirections(document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/> -->
   </p>
 </div>
 
