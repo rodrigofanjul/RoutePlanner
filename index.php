@@ -13,7 +13,7 @@
 <meta name="description" content="Planificador de viajes con múltiples destinos. Hasta 50 paradas.">
 <title>Hoja de ruta | Google Maps</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="css/bootstrap-4.5.3-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="jquery-ui-1.12.0.custom/jquery-ui.min.css">
 <link rel="stylesheet" href="css/style.css"  type="text/css" media="screen">
 <link rel="stylesheet" href="css/print.css"  type="text/css" media="print">
@@ -215,20 +215,18 @@ jQuery(function() {
 <body>
 <div id="fb-root"></div>
 
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand"> Investigación operativa 2020 </a>
+  <form class="form-inline">
+  <td><div id="facebookShare"><div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div></div></td>
+        <td><div id="twitterShare"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div></td>
+  </form>
+</nav>
+
 <div class='container-fluid'>
 
-<div class='row'>
-  <div class='col-md-5 col-print-12'><h2>OptiMap - Fastest Roundtrip Solver</h2></div>
-  <div class='col-md-4 noprint'><div id='div-gpt-ad-1501307630135-0' style='height:50px; width:320px;'></div></div>
-  <div class='col-md-3 noprint'>
-    <table style='float: right;'>
-      <tr>
-        <td><div id="facebookShare"><div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div></div></td>
-        <td><div id="twitterShare"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div></td>
-        <td><div id="googlePlusShare"><g:plusone annotation="inline" width="200"></g:plusone></div></td>
-      </tr>
-    </table>
-  </div>
+<br>
+
 </div>
 
 <div class='row noprint'>
@@ -236,8 +234,14 @@ jQuery(function() {
     <form name="address" onSubmit="clickedAddAddress(); return false;">
       <table>
         <tr>
-          <td><input id='addressStr' name="addressStr" type="text" placeholder="Type address here"/></td>
-          <td><input type="button" value="Find!" onClick="clickedAddAddress()"/></td>
+        
+      <div class="input-group mb-3">
+      <input id='addressStr' name="addressStr" type="text" class="form-control" placeholder="Type address here"/>
+      <div class="input-group-append">
+      <button type="button" value="Find!" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Find!</button>
+      </div>
+  </div>
+         
         </tr>
       </table>
     </form>
@@ -245,9 +249,9 @@ jQuery(function() {
   <div class='col-md-3'>
     <table style="float: right;">
       <tr>
-        <td><input type='button' value='Bulk add addresses' id='bulkButton'/></td>
-        <td><input type='button' value='Help' id='helpButton'/></td>
-        <td><input type='button' value='About' id='aboutButton'/></td>
+        <td><button type='button' value='Bulk add addresses' id='bulkButton' class="btn btn-info"> Bulk add addresses </button> </td>
+        <td><button type='button' value='Help' id='helpButton' class="btn btn-info"> Help </button></td>
+        <td><button type='button' value='About' id='aboutButton' class="btn btn-info"> About </button></td>
       </tr>
     </table>
   </div>
@@ -263,12 +267,12 @@ jQuery(function() {
   <div class='col-md-12 col-print-12'>
     <table>
       <tr>
-        <td><input id='calculateButton' type='button' value='Calculate!'/></td>
-        <td><input type='button' value='Edit' id='editButton'/></td>
-        <td><input type='button' value='Export' id='exportButton'/></td>
-        <td><input type='button' value='Clear' onClick='startOver()'/></td>
-        <td><input type='button' value='Save' onClick='save()'></td>
-        <td><input type='button' value='Print' onClick='window.print()'></td>
+        <td><button id='calculateButton' type='button' value='Calculate!' class="btn btn-primary"> Calculate! </button></td>
+        <td><button type='button' value='Edit' id='editButton' class="btn btn-primary"> Edit </button></td>
+        <td><button type='button' value='Export' id='exportButton' class="btn btn-primary"> Export </button></td>
+        <td><button type='button' value='Clear' onClick='startOver()' class="btn btn-primary"> Clear </button></td>
+        <td><button type='button' value='Save' onClick='save()' class="btn btn-primary"> Save </button></td>
+        <td><button type='button' value='Print' onClick='window.print()' class="btn btn-primary"> Print </button></td>
       </tr>
     </table>
   </div>
