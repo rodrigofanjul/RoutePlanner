@@ -35,6 +35,7 @@
       $.get('includes/calculate.php', function (data) {
         $('#modalBody').html(data);
       });
+      $("#modalButton").show();
       $("#modalButton").html("Calcular");
       $("#modalButton").click(clickedSolve);
       $("#modal").modal('show');
@@ -47,10 +48,25 @@
         $('#modalBody').html(data);
       });
       if(inputList.length > 0) $("#inputList").val(inputList);
+      $("#modalButton").show();
       $("#modalButton").html("Agregar");
       $("#modalButton").click(clickedAddList);
       $("#modal").modal('show');
     });
+
+    // Ayuda
+    $("#helpButton").click(function () {
+      $("#modalTitle").html("<i class='fa fa-question-circle'></i> Ayuda");
+      $.get('includes/help.php', function (data) {
+        $('#modalBody').html(data);
+      });
+      if(inputList.length > 0) $("#inputList").val(inputList);
+      $("#modalButton").hide();
+      $("#modalButton").click();
+      $("#modal").modal('show');
+    });
+
+    $(".myMap").height($(window).height() - $(".navbar").height());
 
   });
 
@@ -95,41 +111,7 @@ jQuery(function() {
   jQuery("input:button").button();
   var ww = jQuery(window).width()-20;
   jQuery('#addressStr').width(Math.min(480, 0.75*ww));
-  jQuery("#dialogTomTom" ).dialog({
-    height: 480,
-  	width: Math.min(640, ww),
-  	modal: true,
-  	autoOpen: false
-  });
-  jQuery("#dialogGarmin").dialog({
-    height: 480,
-  	width: Math.min(640, ww),
-  	modal: true,
-  	autoOpen: false
-  });
-  jQuery('#dialogSave').dialog({
-    height: 240,
-    width: Math.min(480, ww),
-    modal: true,
-    autoOpen: false,
-    buttons : {
-      Ok: function() {
-        jQuery(this).dialog("close");
-      }
-    }
-  });
-  jQuery("#dialogHelp").dialog({
-    height: 480,
-    width: Math.min(640, ww),
-    modal: true,
-    autoOpen: false
-  });
-  jQuery("#dialogAbout").dialog({
-    height: 480,
-    width: Math.min(640, ww),
-    modal: true,
-    autoOpen: false
-  });
+
   jQuery("#dialogEdit").dialog({
     height: 480,
     width: Math.min(640, ww),
@@ -151,19 +133,12 @@ jQuery(function() {
   jQuery('#setLabelCancel').click(function() {
     jQuery('#dialogSetLabel').dialog("close");
   });
-  jQuery('#helpButton').click(function() {
-    jQuery('#dialogHelp').dialog('open');
-  });
-  jQuery('#aboutButton').click(function() {
-    jQuery('#dialogAbout').dialog('open');
-  });
   jQuery('#editButton').click(function() {
     jQuery('#dialogEdit').dialog('open');
   });
   jQuery('#exportButton').click(function() {
     jQuery('#dialogExport').dialog('open');
   });
-  jQuery('.myMap').height(jQuery(window).height() - 100);
 });
 </script>
 </head>
@@ -245,56 +220,10 @@ jQuery(function() {
 <div id="exportOrderData_hidden" class='hidden'></div>
 <div id="durationsData_hidden" class='hidden'></div>
 
-<div id="dialogTomTom" title="Export to TomTom">
-  <iframe name='tomTomIFrame' style='width: 580px; height: 400px'></iframe> 
-</div>
-
-<div id="dialogGarmin" title="Export to Garmin">
-  <iframe name='garminIFrame' style='width: 580px; height: 400px'></iframe>
-</div>
-
-<div id="dialogSave" title="Your route link">
-  <p>You can re-open this route later by going to
-    <input id='saveLink' type='text' style="width: 100%;" value=""/></p>
-  <p>You need to store this link somewhere (e.g in an email or document) to access your route later</p>
-</div>
-
 <div id="dialogSetLabel" title="Set name">
   <p>Enter name for location: <input id='setLabelInput' type='text' style="width: 100%;" value=""/></p>
   <input id='setLabelCancel' type='button' value='Cancel'/>
   <input id='setLabelOk' type='button' value='Ok'/>
-</div>
-
-<!-- TODO decir como usar la app -->
-<div id='dialogHelp' title='Help'>
-  <p>To add locations, simply left-click the map or enter an address
-  either in the single address field, or in the bulk loader. </p>
-  <p>The first location you add is considered to be the start 
-  of your journey. If you click 'Calculate Fastest Roundtrip', it will
-  also be the end of your trip. If you click 'Calculate Fastest A-Z Trip',
-  the last location (the one with the highest number), will be the final
-  destination.</p>
-  <p>To remove or edit a location, click its marker.</p>
-  <p>If more than 15 locations are specified, you are not guaranteed
-  to get the optimal solution, but the solution is likely to be close
-  to the best possible.</p>
-  <p>You can re-arrange
-  stops after the route is computed. To do this, open the 'Edit Route'
-  section and drag or delete locations.</p>
-  <p>Don't hesitate to contact me at
-  <a href='mailto:geir.engdahl@gmail.com'>geir.engdahl@gmail.com</a>
-  with questions, bugs and feedback!</p>
-</div>
-
-<div id='dialogAbout' title='About'>
-  <p><span class="red">New!</span>&nbsp;<a href="https://gebweb.net/optimap-faq/">FAQ about Optimap</a>.
-  <p>How it works: <a href="https://gebweb.net/blogpost/2007/07/05/behind-the-scenes-of-optimap/">Behind the Scenes of OptiMap</a></p>
-  <p>Use on your website: <a href="https://gebweb.net/blogpost/2007/08/26/optimize-your-trips/">Optimize Your Trips</a></p>
-  <p>
-   You can specify a default starting position and zoom level,
-   by adding http GET parameters center and zoom. E.g
-   <a href="index826e.html?center=(60,10)&amp;zoom=6">https://gebweb.net/optimap/index.php?center=(60,10)&amp;zoom=6</a>.</p>
-  <p>Up to 50 locations are accepted.</p>
 </div>
 
 <div id='dialogExport' title='Export'>
