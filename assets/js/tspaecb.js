@@ -84,11 +84,11 @@ function formatLengthMiles(meters) {
 }
 
 function getBlueMarkerIcon(num) {
-    return 'icons/black' + num + '.png';
+    return 'assets/images/icons/black' + num + '.png';
 }
 
 function getRedMarkerIcon(num) {
-    return 'icons/red' + num + '.png';
+    return 'assets/images/icons/red' + num + '.png';
 }
 
 /* Returns two HTML strings representing the driving directions.

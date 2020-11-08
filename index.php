@@ -1,28 +1,26 @@
 
 <!DOCTYPE html>
 <html>
-
-<!-- Mirrored from gebweb.net/optimap/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 20 Oct 2020 22:46:21 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
 <meta name="description" content="Planificador de viajes con múltiples destinos. Hasta 50 paradas.">
 <title>Hoja de ruta | Google Maps</title>
 
-<link rel="stylesheet" href="css/bootstrap-4.5.3-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="jquery-ui-1.12.0.custom/jquery-ui.min.css">
-<link rel="stylesheet" href="css/style.css"  type="text/css" media="screen">
-<link rel="stylesheet" href="css/print.css"  type="text/css" media="print">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/jquery-ui-1.12.0.custom/jquery-ui.min.css">
+<link rel="stylesheet" href="assets/css/style.css"  type="text/css" media="screen">
+<link rel="stylesheet" href="assets/css/print.css"  type="text/css" media="print">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="css/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/BpTspSolver.js"></script>
-<script type="text/javascript" src="js/directions-export.js"></script>
-<script type="text/javascript" src="js/tspaecb.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script type="text/javascript" src="assets/js/BpTspSolver.js"></script>
+<script type="text/javascript" src="assets/js/directions-export.js"></script>
+<script type="text/javascript" src="assets/js/tspaecb.js"></script>
 <script type="text/javascript">
 jQuery.noConflict();
 
@@ -182,7 +180,6 @@ jQuery(function() {
     modal: true,
     autoOpen: false
   });
-
   jQuery('#setLabelCancel').click(function() {
     jQuery('#dialogSetLabel').dialog("close");
   });
@@ -209,48 +206,39 @@ jQuery(function() {
   jQuery('.myMap').height(jQuery(window).height() - 200);
 });
 </script>
-
 </head>
 
 <body>
-<div id="fb-root"></div>
-
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand"> Investigación operativa 2020 </a>
-  <form class="form-inline">
-  <!-- <td><div id="facebookShare"><div class="fb-like" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true" data-font="arial"></div></div></td> -->
-        <!-- <td><div id="twitterShare"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a></div></td> -->
-        <img src="icons\simbolo0.png" width="50" height="50">
-  </form>
+  <div class="container-fluid">
+    <a class="navbar-brand"><img src="assets/images/logo.png" width="50" height="50"> Investigación operativa 2020 </a>
+    <form class="form-inline my-2 my-lg-0">
+      <div class="input-group form-inline my-2 my-lg-0">
+          <input id="addressStr" name="addressStr" type="text" class="form-control" placeholder="Inserte una dirección"/>
+          <div class="input-group-append">
+            <button type="button" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Buscar</button>
+          </div>
+      </div>
+    </form>
+    <button type='button' id='bulkButton' class="btn btn-info navbar-btn">Volcar direcciones</button>
+    <button id='calculateButton' type='button' class="btn btn-primary">Calcular</button>
+    <button type='button' id='editButton' class="btn btn-primary"> Editar </button>
+    <button type='button' id='exportButton' class="btn btn-primary"> Exportar </button>
+    <button type='button' onClick='startOver()' class="btn btn-primary"> Borrar Direcciones </button>
+    <button type='button' onClick='save()' class="btn btn-primary"> Guardar </button>
+    <button type='button' onClick='window.print()' class="btn btn-primary"> Imprimir </button>
+  </div>
 </nav>
+
+<div id="map" class="myMap"></div>
 
 <div class='container-fluid'>
 
-<br>
-
-</div>
-
 <div class='row noprint'>
-  <div class='col-md-9'>
-    <form name="address" onSubmit="clickedAddAddress(); return false;">
-      <table>
-        <tr>
-        
-      <div class="input-group mb-3">
-      <input id='addressStr' name="addressStr" type="text" class="form-control" placeholder="Inserte una dirección"/>
-      <div class="input-group-append">
-      <button type="button" value="Find!" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Buscar</button>
-      </div>
-  </div>
-         
-        </tr>
-      </table>
-    </form>
-  </div>
   <div class='col-md-3'>
     <table style="float: right;">
       <tr>
-        <td><button type='button' value='Bulk add addresses' id='bulkButton' class="btn btn-info"> Volcar direcciones </button> </td>
+        <td> </td>
         <!-- <td><button type='button' value='Help' id='helpButton' class="btn btn-info"> Ayuda </button></td> -->
         <!-- <td><button type='button' value='About' id='aboutButton' class="btn btn-info"> About </button></td> -->
       </tr>
@@ -260,7 +248,7 @@ jQuery(function() {
 
 <div class='row'>
   <div class='col-md-12 col-print-12'>
-    <div id="map" class="myMap"></div>
+    
   </div>
 </div>
 
@@ -268,12 +256,8 @@ jQuery(function() {
   <div class='col-md-12 col-print-12'>
     <table>
       <tr>
-        <td><button id='calculateButton' type='button' value='Calculate!' class="btn btn-primary"> Calcular </button></td>
-        <!-- <td><button type='button' value='Edit' id='editButton' class="btn btn-primary"> Editar </button></td> -->
-        <!-- <td><button type='button' value='Export' id='exportButton' class="btn btn-primary"> Exportar </button></td> -->
-        <td><button type='button' value='Clear' onClick='startOver()' class="btn btn-primary"> Borrar Direcciones </button></td>
-        <td><button type='button' value='Save' onClick='save()' class="btn btn-primary"> Guardar </button></td>
-        <td><button type='button' value='Print' onClick='window.print()' class="btn btn-primary"> Imprimir </button></td>
+        <td></td>
+        
       </tr>
     </table>
   </div>
@@ -412,7 +396,7 @@ jQuery(function() {
     src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad&language=es">
 </script>
 
-<script src="jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
+<script src="assets/jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
 
 </body>
 </html>
