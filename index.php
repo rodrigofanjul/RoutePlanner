@@ -335,6 +335,7 @@ jQuery(function() {
   <input id='setLabelOk' type='button' value='Ok'/>
 </div>
 
+<!-- TODO decir como usar la app -->
 <div id='dialogHelp' title='Help'>
   <p>To add locations, simply left-click the map or enter an address
   either in the single address field, or in the bulk loader. </p>
@@ -385,16 +386,16 @@ jQuery(function() {
 <div id='dialogOptions' title='Opciones del camino'>
   <p>
     <form name="travelOpts">
-      <input id='walking' type='checkbox'/> Caminando <span class='slowWarn red'></span><br>
+      <!-- <input id='walking' type='checkbox'/> Caminando <span class='slowWarn red'></span><br> -->
       <input id='bicycling' type='checkbox'/> En Bicicleta <span class='slowWarn red'></span><br>
       <input id='avoidHighways' type='checkbox'/> Evitar carreteras <span class='slowWarn red'></span><br>
       <input id='avoidTolls' type='checkbox'/> Evitar peajes <span class='slowWarn red'></span><br>
-      <input id='metricUnits' type='checkbox'/> Unidad Metrica (km)
+      <!-- <input id='metricUnits' type='checkbox'/> Unidad Metrica (km) -->
     </form>
   </p>
   <p>
-    <input class="calcButton" type="button" value="Calcular Agente Viajero" onClick="directions(0, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
-    <input class="calcButton" type="button" value="Calcular Agente Economico" onClick="directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/>
+    <input class="calcButton" type="button" value="Calcular Agente Viajero" onClick="directions(0, false, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, true)"/>
+    <input class="calcButton" type="button" value="Calcular Camino Economico" onClick="directions(1, false, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, true)"/>
     <!-- <input class="calcButton" type="button" value="Calculate In Order" onClick="orderedDirections(document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked, document.forms['travelOpts'].metricUnits.checked)"/> -->
   </p>
 </div>
@@ -408,7 +409,7 @@ jQuery(function() {
 
 <!-- Non-blocking scripts -->
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad">
+    src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad&language=es">
 </script>
 
 <script src="jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
