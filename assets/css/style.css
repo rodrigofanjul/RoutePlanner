@@ -35,16 +35,6 @@ p a:visited {
     color: #0000a0;
 }
 
-a {
-    color: #0000a0 !important;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #0000a0;
-    text-decoration: underline;
-}
-
 div.canvas {
     margin-top: 2px;
     margin-left: 15px;
@@ -59,7 +49,7 @@ div.my_textual_div {
 
 div.myMap {
     width: 100%;
-    height: 480px;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2px;

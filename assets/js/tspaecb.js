@@ -373,7 +373,7 @@ function addAddress(addr) {
 }
 
 function clickedAddAddress() {
-    addAddress(document.address.addressStr.value);
+    addAddress($("#addressStr").val());
 }
 
 function addAddressSuccessCallback(address, latlng) {

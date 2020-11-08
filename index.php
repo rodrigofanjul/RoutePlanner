@@ -14,16 +14,15 @@
 <link rel="stylesheet" href="assets/jquery-ui-1.12.0.custom/jquery-ui.min.css">
 <link rel="stylesheet" href="assets/css/style.css"  type="text/css" media="screen">
 <link rel="stylesheet" href="assets/css/print.css"  type="text/css" media="print">
+<link rel="stylesheet" href="assets/css/navbar-icon-top.css"  type="text/css" media="screen">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <script type="text/javascript" src="assets/js/BpTspSolver.js"></script>
 <script type="text/javascript" src="assets/js/directions-export.js"></script>
 <script type="text/javascript" src="assets/js/tspaecb.js"></script>
 <script type="text/javascript">
-jQuery.noConflict();
-
 function onBodyLoad() {
   var lat = 999;
   var lng = 999;
@@ -59,50 +58,6 @@ function toggle(divId) {
     document.getElementById(divId + "_hidden").innerHTML = divObj.innerHTML;
     divObj.innerHTML = "";
   }
-}
-
-function save() {
-  var waypoints = tsp.getWaypoints();
-  var addresses = tsp.getAddresses();
-  var labels = tsp.getLabels();
-  var storeObj = {};
-  storeObj.destinations = new Array();
-  storeObj.route = new Array();
-  storeObj.mode = 0;
-  storeObj.walk = (document.getElementById('walking').checked ? 1 : 0);
-  storeObj.bike = (document.getElementById('bicycling').checked ? 1 : 0);
-  storeObj.avoid = (document.getElementById('avoidHighways').checked ? 1 : 0);
-  storeObj.avoidTolls = (document.getElementById('avoidTolls').checked ? 1 : 0);
-  storeObj.metricUnits = (document.getElementById('metricUnits').checked ? 1 : 0);
-  for (var i = 0; i < waypoints.length; ++i) {
-    storeObj.destinations.push({ geo: { lat: waypoints[i].lat(), lng: waypoints[i].lng() } });
-    if (addresses[i] != null && addresses[i] != "") {
-      storeObj.destinations[i]['addr'] = addresses[i];
-    }
-    if (labels[i] != null && labels[i] != "") {
-      storeObj.destinations[i]['label'] = labels[i];
-    }
-  }
-  var order = tsp.getOrder();
-  if (order != null) {
-    for (var j = 0; j < order.length; ++j) {
-      var i = order[j];
-      storeObj.route.push({ geo: { lat: waypoints[i].lat(), lng: waypoints[i].lng() } });
-      if (addresses[i] != null && addresses[i] != "") {
-        storeObj.route[j]['addr'] = addresses[i];
-      } else {
-      }
-      if (labels[i] != null && labels[i] != "") {
-        storeObj.route[j]['label'] = labels[i];
-      }
-    }
-  }
-
-  jQuery.post('store.html', JSON.stringify(storeObj), function(data) {
-    jQuery('#saveLink').val('https://optimap.net/index.php?id=' + data.id);
-    jQuery('#saveLink').select();
-    jQuery('#dialogSave').dialog("open");
-  }, 'json');
 }
 
 jQuery(function() {
@@ -162,12 +117,6 @@ jQuery(function() {
     modal: true,
     autoOpen: false
   });
-  jQuery("#dialogEdit").dialog({
-    height: 480,
-    width: Math.min(640, ww),
-    modal: true,
-    autoOpen: false
-  });
   jQuery('#dialogSetLabel').dialog({
     height: 200,
     width: Math.min(480, ww),
@@ -197,71 +146,60 @@ jQuery(function() {
   jQuery('#aboutButton').click(function() {
     jQuery('#dialogAbout').dialog('open');
   });
-  jQuery('#editButton').click(function() {
-    jQuery('#dialogEdit').dialog('open');
-  });
   jQuery('#exportButton').click(function() {
     jQuery('#dialogExport').dialog('open');
   });
-  jQuery('.myMap').height(jQuery(window).height() - 200);
+  jQuery('.myMap').height(jQuery(window).height() - 100);
 });
 </script>
 </head>
 
 <body>
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <div class="container-fluid">
-    <a class="navbar-brand"><img src="assets/images/logo.png" width="50" height="50"> Investigación operativa 2020 </a>
-    <form class="form-inline my-2 my-lg-0">
-      <div class="input-group form-inline my-2 my-lg-0">
-          <input id="addressStr" name="addressStr" type="text" class="form-control" placeholder="Inserte una dirección"/>
-          <div class="input-group-append">
-            <button type="button" onClick="clickedAddAddress()" class="btn btn-outline-secondary">Buscar</button>
-          </div>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="assets/images/logo.png" width="50" height="50"> Route Planner</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a id="calculateButton" class="nav-link" href="#"><i class="fa fa-calculator-alt"></i>Calcular</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa fa-trash"></i>Borrar</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-download"></i>Exportar</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Exportar</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Imprimir</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0 mr-auto">
+      <div class="input-group">
+        <input id="addressStr" type="text" class="form-control" placeholder="Inserte una dirección"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="button" onClick="clickedAddAddress()"><i class="fa fa-plus"></i></button>
+        </div>
       </div>
     </form>
-    <button type='button' id='bulkButton' class="btn btn-info navbar-btn">Volcar direcciones</button>
-    <button id='calculateButton' type='button' class="btn btn-primary">Calcular</button>
-    <button type='button' id='editButton' class="btn btn-primary"> Editar </button>
-    <button type='button' id='exportButton' class="btn btn-primary"> Exportar </button>
-    <button type='button' onClick='startOver()' class="btn btn-primary"> Borrar Direcciones </button>
-    <button type='button' onClick='save()' class="btn btn-primary"> Guardar </button>
-    <button type='button' onClick='window.print()' class="btn btn-primary"> Imprimir </button>
+    <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a id='bulkButton' class="nav-link" href="#"><i class="fa fa-list"></i>Inserción múltiple</a>
+      </li>
+      <li class="nav-item">
+        <a id='helpButton' class="nav-link" href="#"><i class="fa fa-question-circle"></i>Ayuda</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
 <div id="map" class="myMap"></div>
 
 <div class='container-fluid'>
-
-<div class='row noprint'>
-  <div class='col-md-3'>
-    <table style="float: right;">
-      <tr>
-        <td> </td>
-        <!-- <td><button type='button' value='Help' id='helpButton' class="btn btn-info"> Ayuda </button></td> -->
-        <!-- <td><button type='button' value='About' id='aboutButton' class="btn btn-info"> About </button></td> -->
-      </tr>
-    </table>
-  </div>
-</div>
-
-<div class='row'>
-  <div class='col-md-12 col-print-12'>
-    
-  </div>
-</div>
-
-<div class='row noprint'>
-  <div class='col-md-12 col-print-12'>
-    <table>
-      <tr>
-        <td></td>
-        
-      </tr>
-    </table>
-  </div>
-</div>
 
 <div class='row'>
   <div class='col-md-12 col-print-12'>
@@ -274,11 +212,6 @@ jQuery(function() {
       </p>
     </div>
   </div>
-</div>
-
-<!-- /33522877/dyn-header -->
-<div class='row noprint'>
-  <div id='div-gpt-ad-1469429582783-0' class='noprint col-md-12'></div>
 </div>
 
 <!-- Hidden stuff -->
