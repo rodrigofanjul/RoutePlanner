@@ -35,9 +35,10 @@
       $.get('includes/calculate.php', function (data) {
         $('#modalBody').html(data);
       });
-      $("#modalButton").show();
       $("#modalButton").html("Calcular");
       $("#modalButton").click(clickedSolve);
+      $("#modalButton").attr('enable',true);
+      $("#modalButton").show();
       $("#modal").modal('show');
     });
     
@@ -48,9 +49,10 @@
         $('#modalBody').html(data);
       });
       if(inputList.length > 0) $("#inputList").val(inputList);
-      $("#modalButton").show();
       $("#modalButton").html("Agregar");
       $("#modalButton").click(clickedAddList);
+      $("#modalButton").attr('enable',true);
+      $("#modalButton").show();
       $("#modal").modal('show');
     });
 
@@ -62,7 +64,6 @@
       });
       if(inputList.length > 0) $("#inputList").val(inputList);
       $("#modalButton").hide();
-      $("#modalButton").click();
       $("#modal").modal('show');
     });
 
@@ -251,7 +252,7 @@ jQuery(function() {
 
 <!-- Non-blocking scripts -->
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad&language=es">
+    src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad">
 </script>
 
 <script src="assets/jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>

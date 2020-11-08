@@ -428,6 +428,10 @@ function startOver() {
 }
 
 function clickedSolve() {
+    if($("#mode").val() == null) return alert("Debes seleccionar el 'Tipo de cálculo'.");
+    if(tsp.getWaypoints().length < 1) return alert("Debes seleccionar como mínimo 1 punto.");
+
+    $("#modalAlert").hide();
     let mode = parseInt($("#mode").val());
     let walking = $("#walking").is(":checked");
     let bicycling = $("#bicycling").is(":checked");
@@ -439,7 +443,7 @@ function clickedSolve() {
 
 function directions(mode, walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
     $("#modalButton").html("<span class='spinner-border spinner-border-sm'></span> Loading..");
-    $("#modalButton").attr('disabled',true);
+    $("#modalButton").attr('enable',false);
     tsp.setAvoidHighways(avoidHighways);
     tsp.setAvoidTolls(avoidTolls);
     if (metricUnits)
@@ -458,7 +462,8 @@ function directions(mode, walking, bicycling, avoidHighways, avoidTolls, metricU
 }
 
 function orderedDirections(walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
-    jQuery('#dialogProgress').dialog('open');
+    $("#modalButton").html("<span class='spinner-border spinner-border-sm'></span> Loading..");
+    $("#modalButton").attr('enable',false);
     tsp.setAvoidHighways(avoidHighways);
     tsp.setAvoidTolls(avoidTolls);
     if (metricUnits)
@@ -499,7 +504,8 @@ function removeOldMarkers() {
 }
 
 function onSolveCallback(myTsp) {
-    jQuery('#dialogProgress').dialog('close');
+    $("#modalButton").attr('enable',true);
+    $("#modal").modal('hide');
     var dirRes = tsp.getGDirections();
     var dir = dirRes.routes[0];
     // Print shortest roundtrip data:
