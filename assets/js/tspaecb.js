@@ -657,10 +657,10 @@ function onSolveCallback(myTsp) {
 }
 
 function clickedAddList() {
-    jQuery('#dialogBulk').dialog('close');
-    var val = document.listOfLocations.inputList.value;
+    $("#modal").modal('hide');
+    var val = $("#inputList").val();
     val = val.replace(/\t/g, ' ');
-    document.listOfLocations.inputList.value = val;
+    $("#inputList").val(val);
     addList(val);
 }
 

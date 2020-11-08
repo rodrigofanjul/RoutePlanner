@@ -23,6 +23,17 @@
 <script type="text/javascript" src="assets/js/directions-export.js"></script>
 <script type="text/javascript" src="assets/js/tspaecb.js"></script>
 <script type="text/javascript">
+
+  $(document).ready(function() {
+    $("#bulkButton").click(function () {
+      $("#modalTitle").html("<i class='fa fa-list'></i> Inserción múltiple");
+      $("#modalBody").html("<textarea id='inputList' class='form-control' rows='10' cols='70' placeholder='Ingrese una dirección por línea'></textarea>")
+      $("#modalButton").html("Agregar");
+      $("#modalButton").click(clickedAddList);
+      $("#modal").modal('show');
+    });
+  });
+
 function onBodyLoad() {
   var lat = 999;
   var lng = 999;
@@ -93,12 +104,6 @@ jQuery(function() {
       }
     }
   });
-  jQuery('#dialogBulk').dialog({
-    height: 320,
-    width: Math.min(480, ww),
-    modal: true,
-    autoOpen: false
-  });
   jQuery("#dialogHelp").dialog({
     height: 480,
     width: Math.min(640, ww),
@@ -117,6 +122,12 @@ jQuery(function() {
     modal: true,
     autoOpen: false
   });
+  jQuery("#dialogEdit").dialog({
+    height: 480,
+    width: Math.min(640, ww),
+    modal: true,
+    autoOpen: false
+  });
   jQuery('#dialogSetLabel').dialog({
     height: 200,
     width: Math.min(480, ww),
@@ -132,11 +143,6 @@ jQuery(function() {
   jQuery('#setLabelCancel').click(function() {
     jQuery('#dialogSetLabel').dialog("close");
   });
-  jQuery('#bulkButton').click(function() {
-    jQuery('#dialogBulk').dialog('open');
-    document.listOfLocations.inputList.focus();
-    document.listOfLocations.inputList.select();
-  });
   jQuery('#calculateButton').click(function() {
     jQuery('#dialogOptions').dialog('open');
   });
@@ -145,6 +151,9 @@ jQuery(function() {
   });
   jQuery('#aboutButton').click(function() {
     jQuery('#dialogAbout').dialog('open');
+  });
+  jQuery('#editButton').click(function() {
+    jQuery('#dialogEdit').dialog('open');
   });
   jQuery('#exportButton').click(function() {
     jQuery('#dialogExport').dialog('open');
@@ -160,21 +169,20 @@ jQuery(function() {
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a id="calculateButton" class="nav-link" href="#"><i class="fa fa-calculator-alt"></i>Calcular</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-trash"></i>Borrar</a>
+        <a onClick='startOver()' class="nav-link" href="#"><i class="fa fa-trash"></i>Borrar</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-download"></i>Exportar</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Exportar</a>
+          <a id='exportButton' class="dropdown-item" href="#">Descargar</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Imprimir</a>
+          <a onClick='window.print()' class="dropdown-item" href="#">Imprimir</a>
         </div>
       </li>
     </ul>
@@ -199,26 +207,40 @@ jQuery(function() {
 
 <div id="map" class="myMap"></div>
 
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modalButton"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class='container-fluid'>
 
 <div class='row'>
   <div class='col-md-12 col-print-12'>
     <div id="path" class="pathdata"></div>
     <div id="my_textual_div"></div>
-    <div id='likeText'>
-      <p>Thank you for using OptiMap!
-      I really appreciate if you share it.
-      Wish you a safe trip -Geir (geir.engdahl@gmail.com)
-      </p>
-    </div>
   </div>
 </div>
 
 <!-- Hidden stuff -->
 <div id="dialogBulk" title='Volcar direcciones'>
   <form name="listOfLocations" onSubmit="clickedAddList(); return false;">
-    <textarea name="inputList" rows="10" cols="70">Una dirección por linea</textarea><br>
-    <input type="button" value="Add list of locations" onClick="clickedAddList();">
+    <br>
+    <input type="button" value="Add list of locations" >
   </form>
 </div>
 
