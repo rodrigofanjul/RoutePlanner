@@ -133,11 +133,6 @@ textarea {
     width: 100%;
 }
 
-input#addressStr {
-    height: 31px;
-    margin-right: -1px;
-}
-
 input.calcButton {
     width: 200pt;
 }
