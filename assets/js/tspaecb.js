@@ -427,10 +427,19 @@ function startOver() {
     tsp.startOver(); // doesn't clearOverlays or clear the directionsPanel
 }
 
-function directions(m, walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
-    jQuery('#dialogOptions').dialog('close');
-    jQuery('#dialogProgress').dialog('open');
-    mode = m;
+function clickedSolve() {
+    let mode = parseInt($("#mode").val());
+    let walking = $("#walking").is(":checked");
+    let bicycling = $("#bicycling").is(":checked");
+    let avoidHighways = $("#avoidHighways").is(":checked");
+    let avoidTolls = $("#avoidTolls").is(":checked");
+    let metricUnits = $("#metricUnits").is(":checked");
+    directions(mode,walking,bicycling,avoidHighways,avoidTolls,metricUnits);
+}
+
+function directions(mode, walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
+    $("#modalButton").html("<span class='spinner-border spinner-border-sm'></span> Loading..");
+    $("#modalButton").attr('disabled',true);
     tsp.setAvoidHighways(avoidHighways);
     tsp.setAvoidTolls(avoidTolls);
     if (metricUnits)
@@ -444,10 +453,8 @@ function directions(m, walking, bicycling, avoidHighways, avoidTolls, metricUnit
     else
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
     tsp.setOnProgressCallback(onProgressCallback);
-    if (m == 0)
-        tsp.solveRoundTrip(onSolveCallback);
-    else
-        tsp.solveAtoZ(onSolveCallback);
+    if (mode == 0) tsp.solveRoundTrip(onSolveCallback);
+    else tsp.solveAtoZ(onSolveCallback);
 }
 
 function orderedDirections(walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
@@ -660,7 +667,7 @@ function clickedAddList() {
     $("#modal").modal('hide');
     var val = $("#inputList").val();
     val = val.replace(/\t/g, ' ');
-    $("#inputList").val(val);
+    inputList = val;
     addList(val);
 }
 
