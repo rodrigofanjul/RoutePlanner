@@ -36,6 +36,7 @@
         $('#modalBody').html(data);
       });
       $("#modalButton").html("Calcular");
+      $("#modalButton").unbind();
       $("#modalButton").click(clickedSolve);
       $("#modalButton").attr('disable',false);
       $("#modalButton").show();
@@ -46,6 +47,7 @@
     $("#exportButton").click(function () {
       $("#modalTitle").html("<i class='fa fa-download'></i> Descargar");
       $('#modalBody').html($("#dialogExport").html());
+      $("#modalButton").unbind();
       $("#modalButton").hide();
       $("#modal").modal('show');
     });
@@ -58,8 +60,9 @@
       });
       if(inputList.length > 0) $("#inputList").val(inputList);
       $("#modalButton").html("Agregar");
+      $("#modalButton").unbind();
       $("#modalButton").click(clickedAddList);
-      $("#modalButton").attr('enable',true);
+      $("#modalButton").attr('disable',false);
       $("#modalButton").show();
       $("#modal").modal('show');
     });
@@ -71,11 +74,12 @@
         $('#modalBody').html(data);
       });
       if(inputList.length > 0) $("#inputList").val(inputList);
+      $("#modalButton").unbind();
       $("#modalButton").hide();
       $("#modal").modal('show');
     });
 
-    $(".myMap").height($(window).height() - 100);
+    $(".myMap").height($(window).height() - 140);
     
   });
 

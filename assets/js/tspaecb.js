@@ -473,7 +473,8 @@ function onSolveCallback(myTsp) {
     var dir = dirRes.routes[0];
     // Print shortest roundtrip data:
 
-    var pathStr = "<button type='none' class='btn btn-dark my-2 mx-2'>Duración del viaje <span class='badge badge-light'>" + formatTime(getTotalDuration(dir)) + "</span></button>";
+    let pathStr = "<button type='none' class='btn btn-dark my-2 mx-2'>Resultado</button>";
+    pathStr += "<button type='none' class='btn btn-dark my-2 mx-2'>Duración del viaje <span class='badge badge-light'>" + formatTime(getTotalDuration(dir)) + "</span></button>";
     pathStr += "<button type='none' class='btn btn-dark my-2 mx-2'>Extensión del viaje <span class='badge badge-light'>" + formatLength(getTotalDistance(dir)) + "(" + formatLengthMiles(getTotalDistance(dir)) + ")</span></button>";
     document.getElementById("path").innerHTML = pathStr;
     document.getElementById("exportDataButton").innerHTML = "<input id='rawButton' class='calcButton' type='button' value='Raw path output' onClick='toggle(\"exportData\"); document.getElementById(\"outputList\").select();'>";
