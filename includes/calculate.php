@@ -3,8 +3,7 @@
     <option value="0">Agente viajero</option>
     <option value="1">Camino económico</option>
 </select>
-
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-4">
     <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="walking"><label class="custom-control-label" for="walking">Caminando</label>
     </div>

@@ -192,48 +192,6 @@ function formatDirections(gdir, mode) {
     return (retArr);
 }
 
-function createTomTomLink(gdir) {
-    var addr = tsp.getAddresses();
-    var labels = tsp.getLabels();
-    var order = tsp.getOrder();
-    var addr2 = new Array();
-    var label2 = new Array();
-    for (var i = 0; i < order.length; ++i) {
-        addr2[i] = addr[order[i]];
-        if (order[i] < labels.length && labels[order[i]] != null && labels[order[i]] != "")
-            label2[i] = labels[order[i]];
-    }
-    var itn = createTomTomItineraryItn(gdir, addr2, label2);
-    var gpx = createGarminGpx(gdir, addr2, label2);
-    var retStr = "<form method='POST' action='tomtom.php' target='tomTomIFrame'>\n";
-    retStr += "<input type='hidden' name='itn' value='" + itn + "' />\n";
-    retStr += "<input type='hidden' name='gpx' value='" + gpx + "' />\n";
-    retStr += "<input id='tomTomButton' class='calcButton' type='submit' value='Send to TomTom' onClick='jQuery(\"#dialogTomTom\").dialog(\"open\");'/>\n";
-    retStr += "</form>\n";
-    return retStr;
-}
-
-function createGarminLink(gdir) {
-    var addr = tsp.getAddresses();
-    var labels = tsp.getLabels();
-    var order = tsp.getOrder();
-    var addr2 = new Array();
-    var label2 = new Array();
-    for (var i = 0; i < order.length; ++i) {
-        addr2[i] = addr[order[i]];
-        if (order[i] < labels.length && labels[order[i]] != null && labels[order[i]] != "")
-            label2[i] = labels[order[i]];
-    }
-    var gpx = createGarminGpx(gdir, addr2, label2);
-    var gpxWp = createGarminGpxWaypoints(gdir, addr2, label2);
-    var retStr = "<form method='POST' action='garmin.php' target='garminIFrame'>\n";
-    retStr += "<input type='hidden' name='gpx' value='" + gpx + "' />\n";
-    retStr += "<input type='hidden' name='gpxWp' value='" + gpxWp + "' />\n";
-    retStr += "<input id='garminButton' class='calcButton' type='submit' value='Send to Garmin' onClick='jQuery(\"#dialogGarmin\").dialog(\"open\");'/>\n";
-    retStr += "</form>\n";
-    return retStr;
-}
-
 function createGoogleLink(gdir) {
     var addr = tsp.getAddresses();
     var order = tsp.getOrder();
@@ -525,8 +483,6 @@ function onSolveCallback(myTsp) {
     var formattedDirections = formatDirections(dir, (endsAtStart ? 0 : 1));
     document.getElementById("routeDrag").innerHTML = formattedDirections[0];
     document.getElementById("my_textual_div").innerHTML = formattedDirections[1];
-    //document.getElementById("garmin").innerHTML = createGarminLink(dir);
-    //document.getElementById("tomtom").innerHTML = createTomTomLink(dir);
     document.getElementById("exportGoogle").innerHTML = "<input id='googleButton' value='View in Google Maps' type='button' class='calcButton' onClick='window.open(\"" + createGoogleLink(dir) + "\");' />";
     if (dir.legs.length >= 25) {
         document.getElementById("exportGoogle").innerHTML = "<input id='googleButton' value='View in Google Maps (max 25 stops)' type='button' class='calcButton'/>";

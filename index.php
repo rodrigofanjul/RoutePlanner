@@ -41,6 +41,14 @@
       $("#modalButton").show();
       $("#modal").modal('show');
     });
+
+    // Exportar
+    $("#exportButton").click(function () {
+      $("#modalTitle").html("<i class='fa fa-download'></i> Descargar");
+      $('#modalBody').html($("#dialogExport").html());
+      $("#modalButton").hide();
+      $("#modal").modal('show');
+    });
     
     // Inserción múltiple
     $("#bulkButton").click(function () {
@@ -68,7 +76,7 @@
     });
 
     $(".myMap").height($(window).height() - $(".navbar").height());
-
+    
   });
 
   function onBodyLoad() {
@@ -111,7 +119,6 @@
 jQuery(function() {
   jQuery("input:button").button();
   var ww = jQuery(window).width()-20;
-  jQuery('#addressStr').width(Math.min(480, 0.75*ww));
 
   jQuery("#dialogEdit").dialog({
     height: 480,
@@ -125,20 +132,11 @@ jQuery(function() {
     modal: true,
     autoOpen: false
   });
-  jQuery("#dialogExport").dialog({
-    height: 560,
-    width: Math.min(340, ww),
-    modal: true,
-    autoOpen: false
-  });
   jQuery('#setLabelCancel').click(function() {
     jQuery('#dialogSetLabel').dialog("close");
   });
   jQuery('#editButton').click(function() {
     jQuery('#dialogEdit').dialog('open');
-  });
-  jQuery('#exportButton').click(function() {
-    jQuery('#dialogExport').dialog('open');
   });
 });
 </script>
@@ -200,7 +198,7 @@ jQuery(function() {
       <div class="modal-body" id="modalBody"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="modalButton"></button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -208,52 +206,35 @@ jQuery(function() {
 
 <div class='container-fluid'>
 
-<div class='row'>
-  <div class='col-md-12 col-print-12'>
-    <div id="path" class="pathdata"></div>
-    <div id="my_textual_div"></div>
+  <div class='row'>
+    <div class='col-md-12 col-print-12'>
+      <div id="path" class="pathdata"></div>
+      <div id="my_textual_div"></div>
+    </div>
   </div>
-</div>
 
-<div id="exportData_hidden" class='hidden'></div>
-<div id="exportLabelData_hidden" class='hidden'></div>
-<div id="exportAddrData_hidden" class='hidden'></div>
-<div id="exportOrderData_hidden" class='hidden'></div>
-<div id="durationsData_hidden" class='hidden'></div>
+  <div id="exportData_hidden" class='hidden'></div>
+  <div id="exportLabelData_hidden" class='hidden'></div>
+  <div id="exportAddrData_hidden" class='hidden'></div>
+  <div id="exportOrderData_hidden" class='hidden'></div>
+  <div id="durationsData_hidden" class='hidden'></div>
 
-<div id="dialogSetLabel" title="Set name">
-  <p>Enter name for location: <input id='setLabelInput' type='text' style="width: 100%;" value=""/></p>
-  <input id='setLabelCancel' type='button' value='Cancel'/>
-  <input id='setLabelOk' type='button' value='Ok'/>
-</div>
+  <div id="dialogSetLabel" title="Set name">
+    <p>Enter name for location: <input id='setLabelInput' type='text' style="width: 100%;" value=""/></p>
+    <input id='setLabelCancel' type='button' value='Cancel'/>
+    <input id='setLabelOk' type='button' value='Ok'/>
+  </div>
 
-<div id='dialogExport' title='Export'>
-  <div id="exportGoogle"></div>
-  <div id="garmin"></div>
-  <div id="tomtom"></div>
-  <br>
-  <p>Advanced:</p>
-  <div id="exportAddrButton"></div>
-  <div id="exportAddrData"></div>
-  <div id="exportDataButton"></div>
-  <div id="exportData"></div>
-  <div id="exportLabelButton"></div>
-  <div id="exportLabelData"></div>
-  <div id="exportOrderButton"></div>
-  <div id="exportOrderData"></div>
-</div>
+  <div id='dialogEdit' title='Edit Route'>
+    <div id="routeDrag"></div>
+    <div id="reverseRoute"></div>
+  </div>
 
-<div id='dialogEdit' title='Edit Route'>
-  <div id="routeDrag"></div>
-  <div id="reverseRoute"></div>
-</div>
+  <?php include 'includes/export.php' ?>
 
 </div>
 
-<!-- Non-blocking scripts -->
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyCRgK3LhRQrlxsm1xrPNwdtW-akcbhps08&callback=onBodyLoad"></script>
 
 <script src="assets/jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
 
