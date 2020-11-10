@@ -75,7 +75,7 @@
       $("#modal").modal('show');
     });
 
-    $(".myMap").height($(window).height() - $(".navbar").height());
+    $(".myMap").height($(window).height() - 100);
     
   });
 
