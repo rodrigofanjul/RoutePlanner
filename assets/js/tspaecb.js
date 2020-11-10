@@ -79,7 +79,7 @@ function formatLengthMiles(meters) {
     var sMeters = meters * 0.621371192;
     var miles = parseInt(sMeters / 1000);
     var commaMiles = parseInt((sMeters - miles * 1000 + 50) / 100);
-    var ret = miles + "." + commaMiles + " miles";
+    var ret = miles + "." + commaMiles + " millas";
     return (ret);
 }
 
