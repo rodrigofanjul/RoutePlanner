@@ -37,7 +37,7 @@
       });
       $("#modalButton").html("Calcular");
       $("#modalButton").click(clickedSolve);
-      $("#modalButton").attr('enable',true);
+      $("#modalButton").attr('disable',false);
       $("#modalButton").show();
       $("#modal").modal('show');
     });

@@ -386,11 +386,18 @@ function startOver() {
 }
 
 function clickedSolve() {
-    if($("#mode").val() == null) return alert("Debes seleccionar el 'Tipo de cálculo'.");
-    if(tsp.getWaypoints().length < 1) return alert("Debes seleccionar como mínimo 1 punto.");
+    if($("#mode").val() == null)
+    {
+        alert("Debes seleccionar el 'Tipo de cálculo'.");
+        return;
+    }
+    if(tsp.getWaypoints().length < 1)
+    {
+        alert("Debes seleccionar como mínimo 1 punto.");
+        return;
+    }
 
-    $("#modalAlert").hide();
-    let mode = parseInt($("#mode").val());
+    mode = parseInt($("#mode").val());
     let walking = $("#walking").is(":checked");
     let bicycling = $("#bicycling").is(":checked");
     let avoidHighways = $("#avoidHighways").is(":checked");
@@ -401,7 +408,7 @@ function clickedSolve() {
 
 function directions(mode, walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
     $("#modalButton").html("<span class='spinner-border spinner-border-sm'></span> Loading..");
-    $("#modalButton").attr('enable',false);
+    $("#modalButton").attr('disable', true);
     tsp.setAvoidHighways(avoidHighways);
     tsp.setAvoidTolls(avoidTolls);
     if (metricUnits)
@@ -414,14 +421,13 @@ function directions(mode, walking, bicycling, avoidHighways, avoidTolls, metricU
         tsp.setTravelMode(google.maps.DirectionsTravelMode.BICYCLING);
     else
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
-    tsp.setOnProgressCallback(onProgressCallback);
     if (mode == 0) tsp.solveRoundTrip(onSolveCallback);
     else tsp.solveAtoZ(onSolveCallback);
 }
 
 function orderedDirections(walking, bicycling, avoidHighways, avoidTolls, metricUnits) {
     $("#modalButton").html("<span class='spinner-border spinner-border-sm'></span> Loading..");
-    $("#modalButton").attr('enable',false);
+    $("#modalButton").attr('disable', true);
     tsp.setAvoidHighways(avoidHighways);
     tsp.setAvoidTolls(avoidTolls);
     if (metricUnits)
@@ -434,7 +440,6 @@ function orderedDirections(walking, bicycling, avoidHighways, avoidTolls, metric
         tsp.setTravelMode(google.maps.DirectionsTravelMode.BICYCLING);
     else
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
-    tsp.setOnProgressCallback(onProgressCallback);
     tsp.solveOrderedTrip(onSolveCallback);
 }
 
@@ -468,8 +473,8 @@ function onSolveCallback(myTsp) {
     var dir = dirRes.routes[0];
     // Print shortest roundtrip data:
 
-    var pathStr = "<button type='none' class='btn btn-primary my-2 mx-2'>Duracion del viaje <span class='badge badge-light'>" + formatTime(getTotalDuration(dir)) + "</span></button>";
-    pathStr += "<button type='none' class='btn btn-primary my-2 mx-2'>Extensión del viaje <span class='badge badge-light'>" + formatLength(getTotalDistance(dir)) + "(" + formatLengthMiles(getTotalDistance(dir)) + ")</span></button>";
+    var pathStr = "<button type='none' class='btn btn-dark my-2 mx-2'>Duración del viaje <span class='badge badge-light'>" + formatTime(getTotalDuration(dir)) + "</span></button>";
+    pathStr += "<button type='none' class='btn btn-dark my-2 mx-2'>Extensión del viaje <span class='badge badge-light'>" + formatLength(getTotalDistance(dir)) + "(" + formatLengthMiles(getTotalDistance(dir)) + ")</span></button>";
     document.getElementById("path").innerHTML = pathStr;
     document.getElementById("exportDataButton").innerHTML = "<input id='rawButton' class='calcButton' type='button' value='Raw path output' onClick='toggle(\"exportData\"); document.getElementById(\"outputList\").select();'>";
     document.getElementById("exportLabelButton").innerHTML = "<input id='rawLabelButton' class='calcButton' type='button' value='Raw path with labels' onClick='toggle(\"exportLabelData\"); document.getElementById(\"outputLabelList\").select();'>"
