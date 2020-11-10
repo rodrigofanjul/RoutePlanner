@@ -259,7 +259,7 @@ function drawMarker(latlng, addr, label, num) {
         var addrStr = (addr == null) ? "" : addr + "<br>";
         var labelStr = (label == null) ? "" : "<b>" + label + "</b><br>";
         var infoWindow = new google.maps.InfoWindow({
-            content: labelStr + addrStr + "<a href='javascript:setMarkerAsStart(markers[" + markerInd + "]" + ")'>" + "Set as starting location" + "</a><br>" + "<a href='javascript:setMarkerAsStop(markers[" + markerInd + "])'>" + "Set as ending location" + "</a><br>" + "<a href='javascript:setLabel(markers[" + markerInd + "], \"" + (label == null ? "" : escapeHtml(label)) + "\")'>" + "Give name</a><br>" + "<a href='javascript:removeMarker(markers[" + markerInd + "])'>" + "Remove location</a>",
+            content: labelStr + addrStr + "<a href='javascript:setMarkerAsStart(markers[" + markerInd + "]" + ")'>" + "Enviar al inicio" + "</a><br>" + "<a href='javascript:setMarkerAsStop(markers[" + markerInd + "])'>" + "Enviar al final" + "</a><br>" + "<a href='javascript:setLabel(markers[" + markerInd + "], \"" + (label == null ? "" : escapeHtml(label)) + "\")'>" + "Nombre</a><br>" + "<a href='javascript:removeMarker(markers[" + markerInd + "])'>" + "Borrar punto</a>",
             position: marker.getPosition()
         });
         marker.infoWindow = infoWindow;
@@ -468,9 +468,8 @@ function onSolveCallback(myTsp) {
     var dir = dirRes.routes[0];
     // Print shortest roundtrip data:
 
-    var pathStr = "<p>Trip duration: " + formatTime(getTotalDuration(dir)) + "<br>";
-    pathStr += "Trip length: " + formatLength(getTotalDistance(dir)) +
-        " (" + formatLengthMiles(getTotalDistance(dir)) + ")</p>";
+    var pathStr = "<button type='none' class='btn btn-primary my-2 mx-2'>Duracion del viaje <span class='badge badge-light'>" + formatTime(getTotalDuration(dir)) + "</span></button>";
+    pathStr += "<button type='none' class='btn btn-primary my-2 mx-2'>Extensión del viaje <span class='badge badge-light'>" + formatLength(getTotalDistance(dir)) + "(" + formatLengthMiles(getTotalDistance(dir)) + ")</span></button>";
     document.getElementById("path").innerHTML = pathStr;
     document.getElementById("exportDataButton").innerHTML = "<input id='rawButton' class='calcButton' type='button' value='Raw path output' onClick='toggle(\"exportData\"); document.getElementById(\"outputList\").select();'>";
     document.getElementById("exportLabelButton").innerHTML = "<input id='rawLabelButton' class='calcButton' type='button' value='Raw path with labels' onClick='toggle(\"exportLabelData\"); document.getElementById(\"outputLabelList\").select();'>"

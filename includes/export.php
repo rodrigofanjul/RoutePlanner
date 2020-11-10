@@ -1,4 +1,4 @@
-<div id='dialogExport' class="hidden" title='Export'>
+<div id='dialogExport' class="hidden noprint" title='Export'>
   <div id="exportGoogle"></div>
   <div id="garmin"></div>
   <div id="tomtom"></div>
